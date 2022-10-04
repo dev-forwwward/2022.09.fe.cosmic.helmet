@@ -6,11 +6,33 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 	<link type="text/css" rel="stylesheet" href="main.css">
+
+	<style>
+		#container {
+			position: fixed;
+			top: 0;
+			left: 0;
+		}
+
+		section {
+			position: relative;
+			z-index: 1111;
+			width: 100vw;
+			height: 100vh;
+			border-bottom: 1px solid yellow;
+		}
+	</style>
 </head>
 
 <body>
 
 	<div id="container"></div>
+
+	<section class="section-one"></section>
+	<section class="section-two"></section>
+
+	<script src="https://assets.codepen.io/16327/gsap-latest-beta.min.js"></script>
+	<script src="https://assets.codepen.io/16327/ScrollTrigger.min.js"></script>
 
 	<!-- Import maps polyfill -->
 	<!-- Remove this when import maps will be widely supported -->
@@ -189,7 +211,32 @@
 
 
 
+		gsap.registerPlugin(ScrollTrigger);
 
+		// camera.position.set(
+		// 	50,		//x
+		// 	80,		//y
+		// 	-40	//z = zoom
+		// )
+
+		ScrollTrigger.defaults({
+			immediateRender: false,
+			ease: "power4.inOut",
+			scrub: true
+		});
+
+		let helmet_anim = gsap.timeline()
+
+		helmet_anim.to(camera.position, {
+			scrollTrigger: {
+				trigger: ".section-two",
+				start: "top bottom",
+				end: "bottom top",
+			},
+			x: 10,
+			//y: 0.1,
+			//z: 0.1
+		})
 
 	</script>
 
