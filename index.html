@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>helmet-cubemap</title>
+	<title>helmet-cubemap-hover-interaction</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 	<link type="text/css" rel="stylesheet" href="main.css">
@@ -170,9 +170,9 @@
 			// Update objects
 			//scene.rotation.y = .5 * elapsedTime
 
-			scene.rotation.y += .5 * (targetX - scene.rotation.y)
-			scene.rotation.x += .05 * (targetY - scene.rotation.x)
-			camera.position.z += -.005 * (targetY - camera.rotation.x)
+			scene.rotation.y += .03 * (targetX - scene.rotation.y)
+			scene.rotation.x += .03 * (targetY - scene.rotation.x)
+			//camera.position.z += -.5 * (targetY - camera.rotation.x)
 
 			// Update Orbital Controls
 			// controls.update()
