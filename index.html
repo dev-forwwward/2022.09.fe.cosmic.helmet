@@ -104,8 +104,9 @@
 			//models
 			const objLoader = new OBJLoader();
 
-			objLoader.setPath('https://cdn.jsdelivr.net/gh/dev-forwwward/2022.09.fe.cosmic.helmet@main/models/obj/helmet/');
-			objLoader.load('main-helmet-texture.obj', function (object) {
+			//objLoader.setPath('https://cdn.jsdelivr.net/gh/dev-forwwward/2022.09.fe.cosmic.helmet@main/models/obj/helmet/');
+			objLoader.setPath('/models/obj/helmet-2/');
+			objLoader.load('main-helmet3D.obj', function (object) {
 
 				const head = object.children[0];
 
