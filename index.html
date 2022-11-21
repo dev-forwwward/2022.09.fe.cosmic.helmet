@@ -111,7 +111,7 @@
 			const ambient = new THREE.AmbientLight(0xffffff);
 			scene.add(ambient);
 
-			pointLight = new THREE.PointLight(0xffffff, 2);
+			pointLight = new THREE.PointLight(0xffffff, 0);
 			scene.add(pointLight);
 
 			//materials
@@ -194,7 +194,7 @@
 
 		}
 
-		//document.addEventListener('mousemove', onDocumentMouseMove)
+		document.addEventListener('mousemove', onDocumentMouseMove)
 
 		function onDocumentMouseMove(event) {
 			mouseX = (event.clientX - windowX)
@@ -226,7 +226,7 @@
 			window.requestAnimationFrame(tick)
 		}
 
-		//tick()
+		tick()
 
 
 
