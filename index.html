@@ -31,10 +31,8 @@
 	<section class="section-one"></section>
 	<section class="section-two"></section>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://assets.codepen.io/16327/gsap-latest-beta.min.js"></script>
 	<script src="https://assets.codepen.io/16327/ScrollTrigger.min.js"></script>
-
 
 	<!-- Import maps polyfill -->
 	<!-- Remove this when import maps will be widely supported -->
@@ -73,18 +71,6 @@
 		init();
 		animate();
 
-		function sizeCheck() {
-			var larg = $(window).width();
-
-			if (larg > 767) {
-				camera.position.x = 27;
-				console.log("this is large");
-			} else {
-				camera.position.x = 40;
-				console.log("not large");
-			}
-		}
-
 		function init() {
 
 
@@ -92,12 +78,7 @@
 			document.getElementById("container").appendChild(container);
 
 			camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-
-			sizeCheck();
-
-			$(window).on("load resize scroll", function (e) {
-				sizeCheck();
-			});
+			camera.position.x = 50;
 
 			// create environment map
 			var envMap = new THREE.CubeTextureLoader()
@@ -111,7 +92,7 @@
 			const ambient = new THREE.AmbientLight(0xffffff);
 			scene.add(ambient);
 
-			pointLight = new THREE.PointLight(0xffffff, 0);
+			pointLight = new THREE.PointLight(0xffffff, 1);
 			scene.add(pointLight);
 
 			//materials
@@ -126,7 +107,7 @@
 			//objLoader.setPath('https://cdn.jsdelivr.net/gh/dev-forwwward/2022.09.fe.cosmic.helmet@main/models/obj/helmet/');
 			objLoader.setPath('https://cdn.jsdelivr.net/gh/dev-forwwward/2022.09.fe.cosmic.helmet@main/models/obj/helmet-2/');
 			objLoader.load('main-helmet3D.obj', function (object) {
-
+				
 				const head = object.children[0];
 
 				head.scale.multiplyScalar(20);
@@ -194,39 +175,46 @@
 
 		}
 
-		document.addEventListener('mousemove', onDocumentMouseMove)
+		document.addEventListener('mousemove', onDocumentMouseMove);
 
 		function onDocumentMouseMove(event) {
-			mouseX = (event.clientX - windowX)
-			mouseY = (event.clientY - windowY)
+			mouseX = (event.clientX - windowX);
+			mouseY = (event.clientY - windowY);
 		}
 
-		const clock = new THREE.Clock()
+		const clock = new THREE.Clock();
 
+		let i = 0;
 		const tick = () => {
-			targetX = mouseX * .001
-			targetY = mouseY * .001
+			targetX = mouseX * .001;
+			targetY = mouseY * .001;
 
-			const elapsedTime = clock.getElapsedTime()
+			const elapsedTime = clock.getElapsedTime();
 
 			// Update objects
 			//scene.rotation.y = .5 * elapsedTime
-
+			
 			scene.rotation.y += .03 * (targetX - scene.rotation.y)
-			scene.rotation.x += .03 * (targetY - scene.rotation.x)
+			
+			if(mouseX < windowX/2) {
+				scene.rotation.x += .03 * (targetY - scene.rotation.x);
+			} else {
+				scene.rotation.x += .03 * (-targetY - scene.rotation.x);
+			}
+			
 			//camera.position.z += -.5 * (targetY - camera.rotation.x)
 
 			// Update Orbital Controls
 			// controls.update()
 
 			// Render
-			renderer.render(scene, camera)
+			renderer.render(scene, camera);
 
 			// Call tick again on the next frame
-			window.requestAnimationFrame(tick)
+			window.requestAnimationFrame(tick);
 		}
 
-		tick()
+		tick();
 
 
 
