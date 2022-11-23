@@ -178,29 +178,35 @@
 		document.addEventListener('mousemove', onDocumentMouseMove);
 
 		function onDocumentMouseMove(event) {
-			mouseX = (event.clientX - windowX);
-			mouseY = (event.clientY - windowY);
+			/*mouseX = (event.clientX - windowX);
+			mouseY = (event.clientY - windowY);*/
+
+			mouseX = (event.clientX - windowX) / 2;
+			mouseY = (event.clientY - windowY) / 2;
 		}
 
 		const clock = new THREE.Clock();
 
 		let i = 0;
 		const tick = () => {
-			targetX = mouseX * .001;
-			targetY = mouseY * .001;
+			targetX = mouseX * .002;
+			targetY = mouseY * .002;
 
 			const elapsedTime = clock.getElapsedTime();
 
 			// Update objects
 			//scene.rotation.y = .5 * elapsedTime
 			
-			scene.rotation.y += .03 * (targetX - scene.rotation.y)
+			//scene.rotation.y += .03 * (targetX - scene.rotation.y)
 			
-			if(mouseX < windowX/2) {
+			/*if(mouseX < 0) {
 				scene.rotation.x += .03 * (targetY - scene.rotation.x);
 			} else {
 				scene.rotation.x += .03 * (-targetY - scene.rotation.x);
-			}
+			}*/
+
+			scene.rotation.z += (-targetY - scene.rotation.z) * 0.03;
+			scene.rotation.y += (targetX - scene.rotation.y) * 0.03;
 			
 			//camera.position.z += -.5 * (targetY - camera.rotation.x)
 
