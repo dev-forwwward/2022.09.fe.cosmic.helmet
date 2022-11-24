@@ -175,43 +175,35 @@
 
 		}
 
+		// Bind 'mousemove' listener to document, run onDocumentMouseMove() function 
+		// each time it detects mouse movement
 		document.addEventListener('mousemove', onDocumentMouseMove);
 
 		function onDocumentMouseMove(event) {
-			/*mouseX = (event.clientX - windowX);
-			mouseY = (event.clientY - windowY);*/
 
-			mouseX = (event.clientX - windowX) / 2;
-			mouseY = (event.clientY - windowY) / 2;
+			// Map mouse coordinates so as to set the value 0 on the center of screen
+			mouseX = (event.clientX - window.innerWidth /2) / 2;
+			mouseY = (event.clientY - window.innerHeight /2) / 2;
 		}
 
 		const clock = new THREE.Clock();
 
 		let i = 0;
 		const tick = () => {
+
+			// Store updated mouse coordinates (reduced .002 times to give the model a smaller rotation)
+			// Note: to make the model rotate more, increase these values
 			targetX = mouseX * .002;
 			targetY = mouseY * .002;
 
+			// Calculate elapsed time
 			const elapsedTime = clock.getElapsedTime();
 
 			// Update objects
-			//scene.rotation.y = .5 * elapsedTime
-			
-			//scene.rotation.y += .03 * (targetX - scene.rotation.y)
-			
-			/*if(mouseX < 0) {
-				scene.rotation.x += .03 * (targetY - scene.rotation.x);
-			} else {
-				scene.rotation.x += .03 * (-targetY - scene.rotation.x);
-			}*/
 
+			// Rotate z and y axis depending on mouse coordinates (translated in targetX and targetY)
 			scene.rotation.z += (-targetY - scene.rotation.z) * 0.03;
 			scene.rotation.y += (targetX - scene.rotation.y) * 0.03;
-			
-			//camera.position.z += -.5 * (targetY - camera.rotation.x)
-
-			// Update Orbital Controls
-			// controls.update()
 
 			// Render
 			renderer.render(scene, camera);
@@ -220,18 +212,13 @@
 			window.requestAnimationFrame(tick);
 		}
 
+		// Count elapsed time and update each value every second (frame)
 		tick();
 
 
 
 
 		gsap.registerPlugin(ScrollTrigger);
-
-		// camera.position.set(
-		// 	50,		//x
-		// 	80,		//y
-		// 	-40	//z = zoom
-		// )
 
 		ScrollTrigger.defaults({
 			immediateRender: false,
@@ -247,9 +234,7 @@
 				start: "top bottom",
 				end: "bottom top",
 			},
-			x: 10,
-			//y: 0.1,
-			//z: 0.1
+			x: 10
 		})
 
 	</script>
